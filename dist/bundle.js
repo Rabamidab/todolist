@@ -13902,7 +13902,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, ".container {\n  width: 960px;\n  margin-right: auto;\n  margin-left: auto;\n  padding: 1rem; }\n  .container__todolist {\n    width: 50%;\n    margin-right: auto;\n    margin-left: auto; }\n\n.todolist {\n  width: 100%; }\n  .todolist__input {\n    display: block;\n    width: 50%;\n    height: 2rem;\n    margin-right: auto;\n    margin-left: auto;\n    border: 2px solid grey;\n    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.3); }\n", ""]);
+exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n  .container__todolist {\n    width: 50%;\n    margin: 0 auto; }\n\n.todolist {\n  width: 100%; }\n  .todolist__input {\n    display: block;\n    width: 50%;\n    height: 3rem;\n    margin: 0 auto;\n    font-size: 2rem;\n    border: 0px solid grey;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n", ""]);
 
 // exports
 
