@@ -1,3 +1,25 @@
-html, body {
-	color: red;
+.container{
+    width: 960px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 1rem;
+
+    &__todolist{
+        width: 50%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+.todolist{
+    width: 100%;
+    &__input{
+        display: block;
+        width: 50%;
+        height: 2rem;
+        margin-right: auto;
+        margin-left: auto;
+        border: 2px solid grey;
+        box-shadow: 0px 10px 20px 0px rgba(0,0,0,0.3);
+    }
 }
