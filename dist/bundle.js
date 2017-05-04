@@ -13869,9 +13869,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var ListItem = _backbone2.default.Model.extend({
     defaults: {
-        description: '',
+        description: 'Неизвестно',
         deadline: 10,
         is_checked: false
+    },
+    render: function render() {
+        this.$el.html(this.model.get('description'));
+    },
+    validate: function validate(attrs) {
+        if (attrs.description == '') {
+            return 'Вы ничего не ввели!';
+        }
     }
 });
 
@@ -13893,6 +13901,29 @@ todolist.add(new ListItem({ description: 'Починить самолёт', dead
 
 console.log(todolist.pluck('description'));
 
+var Person = _backbone2.default.Model.extend({
+    defaults: {
+        name: 'Dima',
+        job: 'wd',
+        age: 23
+    }
+});
+
+var PersonView = _backbone2.default.View.extend({
+    initialize: function initialize() {},
+    tagName: 'li',
+    render: function render() {
+        this.$el.html(this.model.get('name'));
+    }
+});
+
+var person = new Person();
+var personView = new PersonView({ model: person });
+
+personView.render();
+
+console.log(personView.el);
+
 /***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -13902,7 +13933,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, ".container {\n  width: 960px;\n  margin-right: auto;\n  margin-left: auto;\n  padding: 1rem; }\n  .container__todolist {\n    width: 50%;\n    margin-right: auto;\n    margin-left: auto; }\n\n.todolist {\n  width: 100%; }\n  .todolist__input {\n    display: block;\n    width: 50%;\n    height: 2rem;\n    margin-right: auto;\n    margin-left: auto;\n    border: 2px solid grey;\n    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.3); }\n", ""]);
+exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n\n.todolist {\n  width: 100%; }\n  .todolist__input {\n    display: block;\n    width: 100%;\n    height: 3rem;\n    margin: 3rem auto;\n    font-size: 2rem;\n    border: none;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n  .todolist__item {\n    box-sizing: border-box;\n    padding: 1rem;\n    border-bottom: 1px solid #cccccc;\n    text-align: center;\n    cursor: pointer; }\n    .todolist__item:hover {\n      background-color: #cccccc; }\n    .todolist__item:last-child {\n      border: none; }\n", ""]);
 
 // exports
 
