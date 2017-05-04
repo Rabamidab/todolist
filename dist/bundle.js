@@ -13873,6 +13873,7 @@ var ListItem = _backbone2.default.Model.extend({
         deadline: 10,
         is_checked: false
     },
+    tagName: 'li',
     render: function render() {
         this.$el.html(this.model.get('description'));
     },
@@ -13901,28 +13902,87 @@ todolist.add(new ListItem({ description: 'Починить самолёт', dead
 
 console.log(todolist.pluck('description'));
 
-var Person = _backbone2.default.Model.extend({
+// ----------------------------------------------------------------------
+
+window.App = {
+    Models: {},
+    Views: {},
+    Collections: {}
+};
+
+App.Models.Person = _backbone2.default.Model.extend({
     defaults: {
         name: 'Dima',
-        job: 'wd',
-        age: 23
+        age: 23,
+        job: 'wd'
     }
 });
 
-var PersonView = _backbone2.default.View.extend({
-    initialize: function initialize() {},
-    tagName: 'li',
+App.Collections.People = _backbone2.default.Collection.extend({
+    model: App.Models.Person
+});
+
+var person = new App.Models.Person();
+
+App.Views.People = _backbone2.default.View.extend({
+    tagName: 'ul',
+
+    initialize: function initialize() {
+        // console.log(this.collection);
+        this.render();
+    },
+
     render: function render() {
-        this.$el.html(this.model.get('name'));
+        this.collection.each(function (person) {
+            // console.log(this.collection);
+            var personView = new App.Views.Person({ model: person });
+            // this.$el.append(personView.el);
+        }, this);
+        // $('.todolist__list').append(this.$el);
+    },
+
+    className: 'todolist__list'
+
+});
+
+App.Views.Person = _backbone2.default.View.extend({
+    tagName: 'li',
+
+    initialize: function initialize() {
+        this.render();
+    },
+
+    className: 'todolist__item',
+
+    template: _underscore2.default.template((0, _jquery2.default)('#person-id').html()),
+
+    render: function render() {
+        this.$el.html(this.template(this.model.toJSON()));
+        (0, _jquery2.default)('.todolist__list').append(this.$el);
     }
 });
 
-var person = new Person();
-var personView = new PersonView({ model: person });
+// let person = new Person;
+// var personView = new PersonView({model: person});
+// personView.render();
+// console.log(personView.el);
 
-personView.render();
-
-console.log(personView.el);
+var peopleCollection = new App.Collections.People([{
+    name: 'Пётр',
+    age: 21,
+    job: 'таксист'
+}, {
+    name: 'Леон',
+    age: 35,
+    job: 'тракторист'
+}, {
+    name: 'Светка',
+    age: 19,
+    job: 'няша'
+}]);
+// console.log(peopleCollection);
+var peopleView = new App.Views.People({ collection: peopleCollection });
+// console.log(peopleView);
 
 /***/ }),
 /* 5 */
@@ -13933,7 +13993,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n\n.todolist {\n  width: 100%; }\n  .todolist__input {\n    display: block;\n    width: 100%;\n    height: 3rem;\n    margin: 3rem auto;\n    font-size: 2rem;\n    border: none;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n  .todolist__item {\n    box-sizing: border-box;\n    padding: 1rem;\n    border-bottom: 1px solid #cccccc;\n    text-align: center;\n    cursor: pointer; }\n    .todolist__item:hover {\n      background-color: #cccccc; }\n    .todolist__item:last-child {\n      border: none; }\n", ""]);
+exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n\n.todolist {\n  width: 100%; }\n  .todolist__input {\n    display: block;\n    width: 100%;\n    height: 3rem;\n    margin: 3rem auto;\n    font-size: 2rem;\n    border: none;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n  .todolist__list {\n    padding: 0; }\n  .todolist__item {\n    display: block;\n    box-sizing: border-box;\n    padding: 1rem;\n    border-bottom: 1px solid #cccccc;\n    text-align: center;\n    cursor: pointer; }\n    .todolist__item:hover {\n      background-color: #cccccc; }\n    .todolist__item:last-child {\n      border: none; }\n", ""]);
 
 // exports
 
