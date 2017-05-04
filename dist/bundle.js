@@ -13863,126 +13863,64 @@ __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const path = require('./twice');
-// console.log('Hello webpack 2');
-// let a = 3;
-
-var ListItem = _backbone2.default.Model.extend({
-    defaults: {
-        description: 'Неизвестно',
-        deadline: 10,
-        is_checked: false
-    },
-    tagName: 'li',
-    render: function render() {
-        this.$el.html(this.model.get('description'));
-    },
-    validate: function validate(attrs) {
-        if (attrs.description == '') {
-            return 'Вы ничего не ввели!';
-        }
-    }
-});
-
-var ListItemsCollection = _backbone2.default.Collection.extend({
-    model: ListItem
-});
-
-var todolist = new ListItemsCollection();
-
-todolist.comparator = function (listitem) {
-    return listitem.get('deadline');
-};
-
-todolist.add(new ListItem({ description: 'Побегать', deadline: 5 }));
-todolist.add(new ListItem({ description: 'Попрыгать', deadline: 1 }));
-todolist.add(new ListItem({ description: 'Сделать уроки', deadline: 3 }));
-todolist.add(new ListItem({ description: 'Погонять голубей', deadline: 2 }));
-todolist.add(new ListItem({ description: 'Починить самолёт', deadline: 9 }));
-
-console.log(todolist.pluck('description'));
-
-// ----------------------------------------------------------------------
-
 window.App = {
     Models: {},
     Views: {},
     Collections: {}
 };
 
-App.Models.Person = _backbone2.default.Model.extend({
+window.template = function (id) {
+    return _underscore2.default.template((0, _jquery2.default)('#' + id).html());
+};
+
+App.Models.Task = _backbone2.default.Model.extend({
     defaults: {
-        name: 'Dima',
-        age: 23,
-        job: 'wd'
+        checked: false
     }
 });
 
-App.Collections.People = _backbone2.default.Collection.extend({
-    model: App.Models.Person
-});
-
-var person = new App.Models.Person();
-
-App.Views.People = _backbone2.default.View.extend({
-    tagName: 'ul',
-
-    initialize: function initialize() {
-        // console.log(this.collection);
-        this.render();
-    },
-
-    render: function render() {
-        this.collection.each(function (person) {
-            // console.log(this.collection);
-            var personView = new App.Views.Person({ model: person });
-            // this.$el.append(personView.el);
-        }, this);
-        // $('.todolist__list').append(this.$el);
-    },
-
-    className: 'todolist__list'
-
-});
-
-App.Views.Person = _backbone2.default.View.extend({
+App.Views.Task = _backbone2.default.View.extend({
     tagName: 'li',
-
+    className: 'todolist__task',
     initialize: function initialize() {
-        this.render();
+        // this.render();
     },
-
-    className: 'todolist__item',
-
-    template: _underscore2.default.template((0, _jquery2.default)('#person-id').html()),
-
     render: function render() {
-        this.$el.html(this.template(this.model.toJSON()));
-        (0, _jquery2.default)('.todolist__list').append(this.$el);
+        this.$el.html(this.model.get('title'));
+        return this;
     }
 });
 
-// let person = new Person;
-// var personView = new PersonView({model: person});
-// personView.render();
-// console.log(personView.el);
+App.Collections.Tasks = _backbone2.default.Collections.extend({
+    model: App.Models.Task
+});
 
-var peopleCollection = new App.Collections.People([{
-    name: 'Пётр',
-    age: 21,
-    job: 'таксист'
+App.Views.Tasks = _backbone2.default.View.extend({
+    tagName: 'ul',
+    render: function render() {
+        this.collection.each(this.addOne, this);
+        return this;
+    },
+    addOne: function addOne(task) {
+        var taskView = new App.Views.Task({ model: task });
+        (0, _jquery2.default)('.todolist__list').append(taskView);
+    }
+});
+
+var tasksCollection = App.Collections.Tasks([{
+    title: 'Взять пиво',
+    preority: 1
 }, {
-    name: 'Леон',
-    age: 35,
-    job: 'тракторист'
+    title: 'Сходить в кино',
+    preority: 3
 }, {
-    name: 'Светка',
-    age: 19,
-    job: 'няша'
+    title: 'Прыгнуть в лужу',
+    preority: 2
 }]);
-// console.log(peopleCollection);
-var peopleView = new App.Views.People({ collection: peopleCollection });
-// console.log(peopleView);
+
+var tasksViev = new App.Views.Tasks({ collection: tasksCollection });
+
+tasksViev.render();
 
 /***/ }),
 /* 5 */
@@ -13993,7 +13931,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n\n.todolist {\n  width: 100%; }\n  .todolist__input {\n    display: block;\n    width: 100%;\n    height: 3rem;\n    margin: 3rem auto;\n    font-size: 2rem;\n    border: none;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n  .todolist__list {\n    padding: 0; }\n  .todolist__item {\n    display: block;\n    box-sizing: border-box;\n    padding: 1rem;\n    border-bottom: 1px solid #cccccc;\n    text-align: center;\n    cursor: pointer; }\n    .todolist__item:hover {\n      background-color: #cccccc; }\n    .todolist__item:last-child {\n      border: none; }\n", ""]);
+exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n\n.todolist {\n  width: 100%; }\n  .todolist__input {\n    display: block;\n    width: 100%;\n    height: 3rem;\n    margin: 3rem auto;\n    font-size: 2rem;\n    border: none;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n  .todolist__list {\n    padding: 0; }\n  .todolist__task {\n    display: block;\n    box-sizing: border-box;\n    padding: 1rem;\n    border-bottom: 1px solid #cccccc;\n    text-align: center;\n    cursor: pointer; }\n    .todolist__task:hover {\n      background-color: #cccccc; }\n    .todolist__task:last-child {\n      border: none; }\n", ""]);
 
 // exports
 
