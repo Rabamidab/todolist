@@ -47,14 +47,27 @@ App.Views.Task = Backbone.View.extend({
         return this;
     },
     events:{
-        'click .edit': 'editTask',
-        'click .delete': 'destroy'
+        'click .todolist__edit-task': 'editTask',
+        'click .todolist__delete-task': 'destroy',
+        'click .todolist__list-text': 'edit',
+        'focusout .todolist__list-text': 'focusout'
+    },
+    edit: function (e) {
+        $(e.currentTarget).attr('contenteditable', true).focus();
+    },
+    focusout: function (e) {
+        let newTaskTitle = $(e.currentTarget).removeAttr('contenteditable').html();
+        if ( newTaskTitle != '' ) {
+            this.model.set('title', newTaskTitle, {validate:true});
+        } else {
+            this.model.destroy();
+        }
     },
     destroy: function  () {
         this.model.destroy();
     },
     editTask: function  () {
-        var newTaskTitle = prompt('Как переименуем задачу?', this.model.get('title'));
+        let newTaskTitle = prompt('Как переименуем задачу?', this.model.get('title'));
         this.model.set('title', newTaskTitle, {validate:true});
     }
 });
@@ -70,7 +83,7 @@ App.Views.Tasks = Backbone.View.extend({
     },
     addOne: function(task) {
         // создавать новый дочерний вид
-        var taskView = new App.Views.Task({ model: task });
+        let taskView = new App.Views.Task({ model: task });
         // добавлять его в корневой элемент
         this.$el.append(taskView.render().el);
     }
@@ -85,8 +98,8 @@ App.Views.AddTask = Backbone.View.extend({
     },
     submit: function(key) {
         if ( key.keyCode == KEYS.ENTER ) {
-            var newTaskTitle =  $(this.el).val();
-            var newTask = new App.Models.Task({ title: newTaskTitle });
+            let newTaskTitle =  $(this.el).val();
+            let newTask = new App.Models.Task({ title: newTaskTitle });
             this.collection.add(newTask);
         }
     }

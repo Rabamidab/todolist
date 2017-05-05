@@ -13907,8 +13907,21 @@ App.Views.Task = _backbone2.default.View.extend({
         return this;
     },
     events: {
-        'click .edit': 'editTask',
-        'click .delete': 'destroy'
+        'click .todolist__edit-task': 'editTask',
+        'click .todolist__delete-task': 'destroy',
+        'click .todolist__list-text': 'edit',
+        'focusout .todolist__list-text': 'focusout'
+    },
+    edit: function edit(e) {
+        (0, _jquery2.default)(e.currentTarget).attr('contenteditable', true).focus();
+    },
+    focusout: function focusout(e) {
+        var newTaskTitle = (0, _jquery2.default)(e.currentTarget).removeAttr('contenteditable').html();
+        if (newTaskTitle != '') {
+            this.model.set('title', newTaskTitle, { validate: true });
+        } else {
+            this.model.destroy();
+        }
     },
     destroy: function destroy() {
         this.model.destroy();
