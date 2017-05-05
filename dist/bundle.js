@@ -13863,64 +13863,106 @@ __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-window.App = {
-    Models: {},
-    Views: {},
-    Collections: {}
+var KEYS = {
+    ENTER: 13
 };
 
-window.template = function (id) {
+var tasksCollection = void 0,
+    tasksView = void 0,
+    addTaskView = void 0;
+
+window.App = {
+    Models: {},
+    Collections: {},
+    Views: {}
+};
+
+var template = function template(id) {
     return _underscore2.default.template((0, _jquery2.default)('#' + id).html());
 };
 
 App.Models.Task = _backbone2.default.Model.extend({
-    defaults: {
-        checked: false
+    validate: function validate(attrs) {
+        if (!attrs.title) {
+            return 'Имя задачи должно быть валидным!';
+        }
     }
+});
+
+App.Collections.Task = _backbone2.default.Collection.extend({
+    model: App.Models.Task
 });
 
 App.Views.Task = _backbone2.default.View.extend({
     tagName: 'li',
     className: 'todolist__task',
+    template: template('taskTemplate'),
     initialize: function initialize() {
-        // this.render();
+        this.model.on('change', this.render, this);
+        this.model.on('destroy', this.remove, this);
     },
     render: function render() {
-        this.$el.html(this.model.get('title'));
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
         return this;
+    },
+    events: {
+        'click .edit': 'editTask',
+        'click .delete': 'destroy'
+    },
+    destroy: function destroy() {
+        this.model.destroy();
+    },
+    editTask: function editTask() {
+        var newTaskTitle = prompt('Как переименуем задачу?', this.model.get('title'));
+        this.model.set('title', newTaskTitle, { validate: true });
     }
 });
 
-App.Collections.Tasks = _backbone2.default.Collections.extend({
-    model: App.Models.Task
-});
-
 App.Views.Tasks = _backbone2.default.View.extend({
-    tagName: 'ul',
+    el: '.todolist__list',
+    initialize: function initialize() {
+        this.collection.on('add', this.addOne, this);
+    },
     render: function render() {
         this.collection.each(this.addOne, this);
         return this;
     },
     addOne: function addOne(task) {
+        // создавать новый дочерний вид
         var taskView = new App.Views.Task({ model: task });
-        (0, _jquery2.default)('.todolist__list').append(taskView);
+        // добавлять его в корневой элемент
+        this.$el.append(taskView.render().el);
     }
 });
 
-var tasksCollection = App.Collections.Tasks([{
-    title: 'Взять пиво',
-    preority: 1
+App.Views.AddTask = _backbone2.default.View.extend({
+    el: '.todolist__input',
+    events: {
+        'keypress': 'submit'
+    },
+    initialize: function initialize() {},
+    submit: function submit(key) {
+        if (key.keyCode == KEYS.ENTER) {
+            var newTaskTitle = (0, _jquery2.default)(this.el).val();
+            var newTask = new App.Models.Task({ title: newTaskTitle });
+            this.collection.add(newTask);
+        }
+    }
+});
+
+tasksCollection = new App.Collections.Task([{
+    title: 'Сходить в магазин'
 }, {
-    title: 'Сходить в кино',
-    preority: 3
+    title: 'Получить почту'
 }, {
-    title: 'Прыгнуть в лужу',
-    preority: 2
+    title: 'Сходить на работу'
 }]);
 
-var tasksViev = new App.Views.Tasks({ collection: tasksCollection });
+tasksView = new App.Views.Tasks({ collection: tasksCollection });
+addTaskView = new App.Views.AddTask({ collection: tasksCollection });
 
-tasksViev.render();
+tasksView.render();
 
 /***/ }),
 /* 5 */
@@ -13931,7 +13973,7 @@ exports = module.exports = __webpack_require__(6)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n\n.todolist {\n  width: 100%; }\n  .todolist__input {\n    display: block;\n    width: 100%;\n    height: 3rem;\n    margin: 3rem auto;\n    font-size: 2rem;\n    border: none;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n  .todolist__list {\n    padding: 0; }\n  .todolist__task {\n    display: block;\n    box-sizing: border-box;\n    padding: 1rem;\n    border-bottom: 1px solid #cccccc;\n    text-align: center;\n    cursor: pointer; }\n    .todolist__task:hover {\n      background-color: #cccccc; }\n    .todolist__task:last-child {\n      border: none; }\n", ""]);
+exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n\n.todolist {\n  width: 100%; }\n  .todolist__input {\n    display: block;\n    width: 100%;\n    height: 3rem;\n    margin: 3rem auto;\n    font-size: 1.3rem;\n    border: none;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n  .todolist__list {\n    padding: 0; }\n  .todolist__task {\n    display: block;\n    box-sizing: border-box;\n    padding: 1rem;\n    border-bottom: 1px solid #cccccc;\n    cursor: pointer; }\n    .todolist__task:hover {\n      background-color: #cccccc; }\n    .todolist__task:last-child {\n      border: none; }\n  .todolist__checkbox {\n    display: block;\n    float: left; }\n", ""]);
 
 // exports
 
