@@ -13909,6 +13909,8 @@ __webpack_require__(20);
 
 __webpack_require__(21);
 
+__webpack_require__(22);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
@@ -14553,26 +14555,16 @@ var _variables = __webpack_require__(2);
 
 var _taskView = __webpack_require__(19);
 
-var tasksCollection = new _variables.App.Collections.Task([{
-    title: 'Сходить в магазин'
-}, {
-    title: 'Получить почту'
-}, {
-    title: 'Сходить на работу'
-}]);
-
 _variables.App.Views.Tasks = Backbone.View.extend({
     // el: '.todolist__list',
-    tagName: 'input',
-    className: 'todolist__input',
-    placeholder: 'Ваша новая задача',
+    tagName: 'ul',
+    className: 'todolist__list',
     initialize: function initialize() {
         this.collection.on('add', this.addOne, this);
     },
     render: function render() {
-        this.$el.attr({ type: 'text', placeholder: 'Ваша новая задача' });
+        // this.$el.attr({type: 'text', placeholder: 'Ваша новая задача'})
         this.collection.each(this.addOne, this);
-        console.log(this.el);
         return this;
     },
     addOne: function addOne(task) {
@@ -14582,10 +14574,6 @@ _variables.App.Views.Tasks = Backbone.View.extend({
         this.$el.append(taskView.render().el);
     }
 });
-
-var tasksView = new _variables.App.Views.Tasks({ collection: tasksCollection });
-
-tasksView.render();
 
 /***/ }),
 /* 21 */
@@ -14605,7 +14593,9 @@ var _jquery2 = _interopRequireDefault(_jquery);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 App.Views.AddTask = Backbone.View.extend({
-    el: '.todolist__input',
+    // el: '.todolist__input',
+    tagName: 'input',
+    className: 'todolist__input',
     events: {
         'keypress': 'submit'
     },
@@ -14616,8 +14606,53 @@ App.Views.AddTask = Backbone.View.extend({
             var newTask = new _taskModel.TaskModel({ title: newTaskTitle });
             this.collection.add(newTask);
         }
+    },
+    render: function render() {
+        this.$el.attr({ type: 'text', placeholder: 'Ваша новая задача' });
+        return this;
     }
 });
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _jquery = __webpack_require__(0);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var _underscore = __webpack_require__(1);
+
+var _underscore2 = _interopRequireDefault(_underscore);
+
+var _variables = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var tasksCollection = new _variables.App.Collections.Task([{
+    title: 'Сходить в магазин'
+}, {
+    title: 'Получить почту'
+}, {
+    title: 'Сходить на работу'
+}]);
+
+_variables.App.Views.App = Backbone.View.extend({
+    el: '.todolist',
+    render: function render() {
+        var addTaskView = new _variables.App.Views.AddTask({ collection: tasksCollection });
+        var tasksView = new _variables.App.Views.Tasks({ collection: tasksCollection });
+        this.$el.html();
+        this.$el.append(addTaskView.render().$el);
+        this.$el.append(tasksView.render().$el);
+    }
+});
+
+var appView = new _variables.App.Views.App();
+appView.render();
 
 /***/ })
 /******/ ]);

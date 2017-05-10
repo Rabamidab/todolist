@@ -6,7 +6,7 @@ import {App} from './variables';
 import './collections/taskCollection';
 import './views/tasksView';
 import './views/addTaskView';
-// import './views/appView';
+import './views/appView';
 
 // let tasksCollection = new App.Collections.Task([
 //     {

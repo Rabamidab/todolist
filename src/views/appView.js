@@ -2,31 +2,28 @@ import $ from 'jquery';
 import _ from 'underscore';
 import {App} from '../variables';
 
+let tasksCollection = new App.Collections.Task([
+    {
+        title: 'Сходить в магазин'
+    },
+    {
+        title: 'Получить почту'
+    },
+    {
+        title: 'Сходить на работу'
+    },
+]);
+
 App.Views.App = Backbone.View.extend({
     el: '.todolist',
-    template: ` 
-            <input class="todolist__input" type="text" placeholder="Ваша новая задача">
-            <ul class="todolist__list">
-
-            </ul>`
-    ,
     render() {
-        // this.$el.html( this.template );
-        // let tasksView = new App.Views.Tasks({ collection: tasksCollection});
-        // this.$el.html( this.template );
-        // this.$el.html( tasksView.render() );
+        let addTaskView = new App.Views.AddTask({ collection: tasksCollection });
+        let tasksView = new App.Views.Tasks({ collection: tasksCollection});
+        this.$el.html();
+        this.$el.append(addTaskView.render().$el);
+        this.$el.append(tasksView.render().$el);
     }
 });
 
-// App.Views.Input = Backbone.View.extend({
-//     el: '.todolist',
-//     template: ` 
-//             <input class="todolist__input" type="text" placeholder="Ваша новая задача">
-//             <ul class="todolist__list">
-
-//             </ul>`
-//     ,
-//     render() {
-//         this.$el.html( this.template );
-//     }
-// });
+let appView = new App.Views.App();
+appView.render();
