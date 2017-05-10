@@ -13861,110 +13861,21 @@ var _underscore2 = _interopRequireDefault(_underscore);
 
 __webpack_require__(3);
 
+var _variables = __webpack_require__(10);
+
+__webpack_require__(11);
+
+__webpack_require__(12);
+
+__webpack_require__(13);
+
+__webpack_require__(14);
+
+__webpack_require__(15);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var KEYS = {
-    ENTER: 13
-};
-
-var tasksCollection = void 0,
-    tasksView = void 0,
-    addTaskView = void 0;
-
-window.App = {
-    Models: {},
-    Collections: {},
-    Views: {}
-};
-
-var template = function template(id) {
-    return _underscore2.default.template((0, _jquery2.default)('#' + id).html());
-};
-
-App.Models.Task = _backbone2.default.Model.extend({
-    validate: function validate(attrs) {
-        if (!attrs.title) {
-            return 'Имя задачи должно быть валидным!';
-        }
-    }
-});
-
-App.Collections.Task = _backbone2.default.Collection.extend({
-    model: App.Models.Task
-});
-
-App.Views.Task = _backbone2.default.View.extend({
-    tagName: 'li',
-    className: 'todolist__task',
-    template: template('taskTemplate'),
-    initialize: function initialize() {
-        this.model.on('change', this.render, this);
-        this.model.on('destroy', this.remove, this);
-    },
-    render: function render() {
-        var template = this.template(this.model.toJSON());
-        this.$el.html(template);
-        return this;
-    },
-    events: {
-        'click .todolist__edit-task': 'editTask',
-        'click .todolist__delete-task': 'destroy',
-        'click .todolist__list-text': 'edit',
-        'focusout .todolist__list-text': 'focusout'
-    },
-    edit: function edit(e) {
-        (0, _jquery2.default)(e.currentTarget).attr('contenteditable', true).focus();
-    },
-    focusout: function focusout(e) {
-        var newTaskTitle = (0, _jquery2.default)(e.currentTarget).removeAttr('contenteditable').html();
-        if (newTaskTitle != '') {
-            this.model.set('title', newTaskTitle, { validate: true });
-        } else {
-            this.model.destroy();
-        }
-    },
-    destroy: function destroy() {
-        this.model.destroy();
-    },
-    editTask: function editTask() {
-        var newTaskTitle = prompt('Как переименуем задачу?', this.model.get('title'));
-        this.model.set('title', newTaskTitle, { validate: true });
-    }
-});
-
-App.Views.Tasks = _backbone2.default.View.extend({
-    el: '.todolist__list',
-    initialize: function initialize() {
-        this.collection.on('add', this.addOne, this);
-    },
-    render: function render() {
-        this.collection.each(this.addOne, this);
-        return this;
-    },
-    addOne: function addOne(task) {
-        // создавать новый дочерний вид
-        var taskView = new App.Views.Task({ model: task });
-        // добавлять его в корневой элемент
-        this.$el.append(taskView.render().el);
-    }
-});
-
-App.Views.AddTask = _backbone2.default.View.extend({
-    el: '.todolist__input',
-    events: {
-        'keypress': 'submit'
-    },
-    initialize: function initialize() {},
-    submit: function submit(key) {
-        if (key.keyCode == KEYS.ENTER) {
-            var newTaskTitle = (0, _jquery2.default)(this.el).val();
-            var newTask = new App.Models.Task({ title: newTaskTitle });
-            this.collection.add(newTask);
-        }
-    }
-});
-
-tasksCollection = new App.Collections.Task([{
+var tasksCollection = new _variables.App.Collections.Task([{
     title: 'Сходить в магазин'
 }, {
     title: 'Получить почту'
@@ -13972,8 +13883,8 @@ tasksCollection = new App.Collections.Task([{
     title: 'Сходить на работу'
 }]);
 
-tasksView = new App.Views.Tasks({ collection: tasksCollection });
-addTaskView = new App.Views.AddTask({ collection: tasksCollection });
+var tasksView = new _variables.App.Views.Tasks({ collection: tasksCollection });
+var addTaskView = new _variables.App.Views.AddTask({ collection: tasksCollection });
 
 tasksView.render();
 
@@ -14507,6 +14418,174 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.template = exports.App = exports.KEYS = undefined;
+
+var _underscore = __webpack_require__(1);
+
+var _underscore2 = _interopRequireDefault(_underscore);
+
+var _jquery = __webpack_require__(0);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var KEYS = {
+    ENTER: 13
+};
+
+window.App = {
+    Models: {},
+    Collections: {},
+    Views: {}
+};
+
+var template = function template(id) {
+    return _underscore2.default.template((0, _jquery2.default)('#' + id).html());
+};
+
+exports.KEYS = KEYS;
+exports.App = App;
+exports.template = template;
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _variables = __webpack_require__(10);
+
+_variables.App.Models.Task = Backbone.Model.extend({
+    validate: function validate(attrs) {
+        if (!attrs.title) {
+            return 'Имя задачи должно быть валидным!';
+        }
+    }
+});
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _variables = __webpack_require__(10);
+
+_variables.App.Collections.Task = Backbone.Collection.extend({
+    model: _variables.App.Models.Task
+});
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _variables = __webpack_require__(10);
+
+_variables.App.Views.Task = Backbone.View.extend({
+    tagName: 'li',
+    className: 'todolist__task',
+    template: (0, _variables.template)('taskTemplate'),
+    initialize: function initialize() {
+        this.model.on('change', this.render, this);
+        this.model.on('destroy', this.remove, this);
+    },
+    render: function render() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
+    },
+    events: {
+        'click .todolist__edit-task': 'editTask',
+        'click .todolist__delete-task': 'destroy',
+        'click .todolist__list-text': 'edit',
+        'focusout .todolist__list-text': 'focusout'
+    },
+    edit: function edit(e) {
+        $(e.currentTarget).attr('contenteditable', true).focus();
+    },
+    focusout: function focusout(e) {
+        var newTaskTitle = $(e.currentTarget).removeAttr('contenteditable').html();
+        if (newTaskTitle != '') {
+            this.model.set('title', newTaskTitle, { validate: true });
+        } else {
+            this.model.destroy();
+        }
+    },
+    destroy: function destroy() {
+        this.model.destroy();
+    },
+    editTask: function editTask() {
+        var newTaskTitle = prompt('Как переименуем задачу?', this.model.get('title'));
+        this.model.set('title', newTaskTitle, { validate: true });
+    }
+});
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _variables = __webpack_require__(10);
+
+_variables.App.Views.Tasks = Backbone.View.extend({
+    el: '.todolist__list',
+    initialize: function initialize() {
+        this.collection.on('add', this.addOne, this);
+    },
+    render: function render() {
+        this.collection.each(this.addOne, this);
+        return this;
+    },
+    addOne: function addOne(task) {
+        // создавать новый дочерний вид
+        var taskView = new _variables.App.Views.Task({ model: task });
+        // добавлять его в корневой элемент
+        this.$el.append(taskView.render().el);
+    }
+});
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _variables = __webpack_require__(10);
+
+_variables.App.Views.AddTask = Backbone.View.extend({
+    el: '.todolist__input',
+    events: {
+        'keypress': 'submit'
+    },
+    initialize: function initialize() {},
+    submit: function submit(key) {
+        if (key.keyCode == KEYS.ENTER) {
+            var newTaskTitle = $(this.el).val();
+            var newTask = new _variables.App.Models.Task({ title: newTaskTitle });
+            this.collection.add(newTask);
+        }
+    }
+});
 
 /***/ })
 /******/ ]);
