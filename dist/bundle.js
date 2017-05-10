@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11885,6 +11885,46 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.template = exports.App = exports.KEYS = undefined;
+
+var _underscore = __webpack_require__(1);
+
+var _underscore2 = _interopRequireDefault(_underscore);
+
+var _jquery = __webpack_require__(0);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var KEYS = {
+    ENTER: 13
+};
+
+window.App = {
+    Models: {},
+    Collections: {},
+    Views: {}
+};
+
+var template = function template(id) {
+    return _underscore2.default.template((0, _jquery2.default)('#' + id).html());
+};
+
+exports.KEYS = KEYS;
+exports.App = App;
+exports.template = template;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Backbone.js 1.3.3
 
 //     (c) 2010-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -13807,16 +13847,16 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
   return Backbone;
 });
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(5);
+var content = __webpack_require__(6);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -13824,7 +13864,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(7)(content, options);
+var update = __webpack_require__(8)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -13841,7 +13881,7 @@ if(false) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13851,7 +13891,7 @@ var _jquery = __webpack_require__(0);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _backbone = __webpack_require__(2);
+var _backbone = __webpack_require__(3);
 
 var _backbone2 = _interopRequireDefault(_backbone);
 
@@ -13859,40 +13899,23 @@ var _underscore = __webpack_require__(1);
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
-__webpack_require__(3);
+__webpack_require__(4);
 
-var _variables = __webpack_require__(10);
+var _variables = __webpack_require__(2);
 
-__webpack_require__(11);
+__webpack_require__(16);
 
-__webpack_require__(12);
+__webpack_require__(20);
 
-__webpack_require__(13);
-
-__webpack_require__(14);
-
-__webpack_require__(15);
+__webpack_require__(21);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var tasksCollection = new _variables.App.Collections.Task([{
-    title: 'Сходить в магазин'
-}, {
-    title: 'Получить почту'
-}, {
-    title: 'Сходить на работу'
-}]);
-
-var tasksView = new _variables.App.Views.Tasks({ collection: tasksCollection });
-var addTaskView = new _variables.App.Views.AddTask({ collection: tasksCollection });
-
-tasksView.render();
-
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(7)(undefined);
 // imports
 
 
@@ -13903,7 +13926,7 @@ exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 /*
@@ -13985,7 +14008,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -14022,7 +14045,7 @@ var stylesInDom = {},
 	singletonElement = null,
 	singletonCounter = 0,
 	styleElementsInsertedAtTop = [],
-	fixUrls = __webpack_require__(8);
+	fixUrls = __webpack_require__(9);
 
 module.exports = function(list, options) {
 	if(typeof DEBUG !== "undefined" && DEBUG) {
@@ -14298,7 +14321,7 @@ function updateLink(linkElement, options, obj) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 
@@ -14393,7 +14416,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 var g;
@@ -14420,7 +14443,25 @@ module.exports = g;
 
 
 /***/ }),
-/* 10 */
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _taskModel = __webpack_require__(17);
+
+App.Collections.Task = Backbone.Collection.extend({
+    model: _taskModel.TaskModel
+});
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14429,7 +14470,28 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.template = exports.App = exports.KEYS = undefined;
+var TaskModel = exports.TaskModel = Backbone.Model.extend({
+    validate: function validate(attrs) {
+        if (!attrs.title) {
+            return 'Имя задачи должно быть валидным!';
+        }
+    }
+});
+
+/***/ }),
+/* 18 */,
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.TaskView = undefined;
+
+var _variables = __webpack_require__(2);
 
 var _underscore = __webpack_require__(1);
 
@@ -14441,67 +14503,10 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var KEYS = {
-    ENTER: 13
-};
-
-window.App = {
-    Models: {},
-    Collections: {},
-    Views: {}
-};
-
-var template = function template(id) {
-    return _underscore2.default.template((0, _jquery2.default)('#' + id).html());
-};
-
-exports.KEYS = KEYS;
-exports.App = App;
-exports.template = template;
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _variables = __webpack_require__(10);
-
-_variables.App.Models.Task = Backbone.Model.extend({
-    validate: function validate(attrs) {
-        if (!attrs.title) {
-            return 'Имя задачи должно быть валидным!';
-        }
-    }
-});
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _variables = __webpack_require__(10);
-
-_variables.App.Collections.Task = Backbone.Collection.extend({
-    model: _variables.App.Models.Task
-});
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _variables = __webpack_require__(10);
-
-_variables.App.Views.Task = Backbone.View.extend({
+var TaskView = exports.TaskView = Backbone.View.extend({
     tagName: 'li',
     className: 'todolist__task',
-    template: (0, _variables.template)('taskTemplate'),
+    template: _underscore2.default.template(' <span class="todolist__list-text">\n                                <%= title %>\n                            </span>\n                            <button class="todolist__edit-task">\n                                Edit\n                            </button> \n                            <button class="todolist__delete-task">\n                                Delete\n                            </button>'),
     initialize: function initialize() {
         this.model.on('change', this.render, this);
         this.model.on('destroy', this.remove, this);
@@ -14518,10 +14523,10 @@ _variables.App.Views.Task = Backbone.View.extend({
         'focusout .todolist__list-text': 'focusout'
     },
     edit: function edit(e) {
-        $(e.currentTarget).attr('contenteditable', true).focus();
+        (0, _jquery2.default)(e.currentTarget).attr('contenteditable', true).focus();
     },
     focusout: function focusout(e) {
-        var newTaskTitle = $(e.currentTarget).removeAttr('contenteditable').html();
+        var newTaskTitle = (0, _jquery2.default)(e.currentTarget).removeAttr('contenteditable').html();
         if (newTaskTitle != '') {
             this.model.set('title', newTaskTitle, { validate: true });
         } else {
@@ -14538,50 +14543,77 @@ _variables.App.Views.Task = Backbone.View.extend({
 });
 
 /***/ }),
-/* 14 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _variables = __webpack_require__(10);
+var _variables = __webpack_require__(2);
+
+var _taskView = __webpack_require__(19);
+
+var tasksCollection = new _variables.App.Collections.Task([{
+    title: 'Сходить в магазин'
+}, {
+    title: 'Получить почту'
+}, {
+    title: 'Сходить на работу'
+}]);
 
 _variables.App.Views.Tasks = Backbone.View.extend({
-    el: '.todolist__list',
+    // el: '.todolist__list',
+    tagName: 'input',
+    className: 'todolist__input',
+    placeholder: 'Ваша новая задача',
     initialize: function initialize() {
         this.collection.on('add', this.addOne, this);
     },
     render: function render() {
+        this.$el.attr({ type: 'text', placeholder: 'Ваша новая задача' });
         this.collection.each(this.addOne, this);
+        console.log(this.el);
         return this;
     },
     addOne: function addOne(task) {
         // создавать новый дочерний вид
-        var taskView = new _variables.App.Views.Task({ model: task });
+        var taskView = new _taskView.TaskView({ model: task });
         // добавлять его в корневой элемент
         this.$el.append(taskView.render().el);
     }
 });
 
+var tasksView = new _variables.App.Views.Tasks({ collection: tasksCollection });
+
+tasksView.render();
+
 /***/ }),
-/* 15 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _variables = __webpack_require__(10);
+var _taskModel = __webpack_require__(17);
 
-_variables.App.Views.AddTask = Backbone.View.extend({
+var _variables = __webpack_require__(2);
+
+var _jquery = __webpack_require__(0);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+App.Views.AddTask = Backbone.View.extend({
     el: '.todolist__input',
     events: {
         'keypress': 'submit'
     },
     initialize: function initialize() {},
     submit: function submit(key) {
-        if (key.keyCode == KEYS.ENTER) {
-            var newTaskTitle = $(this.el).val();
-            var newTask = new _variables.App.Models.Task({ title: newTaskTitle });
+        if (key.keyCode == _variables.KEYS.ENTER) {
+            var newTaskTitle = (0, _jquery2.default)(this.el).val();
+            var newTask = new _taskModel.TaskModel({ title: newTaskTitle });
             this.collection.add(newTask);
         }
     }

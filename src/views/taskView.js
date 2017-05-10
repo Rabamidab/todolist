@@ -1,9 +1,20 @@
-import {App, template} from '../variables';
+import {App} from '../variables';
+import _ from 'underscore';
+import $ from 'jquery';
 
-App.Views.Task = Backbone.View.extend({
+export let TaskView = Backbone.View.extend({
     tagName: 'li',
     className: 'todolist__task',
-    template: template('taskTemplate'),
+    template: _.template( ` <span class="todolist__list-text">
+                                <%= title %>
+                            </span>
+                            <button class="todolist__edit-task">
+                                Edit
+                            </button> 
+                            <button class="todolist__delete-task">
+                                Delete
+                            </button>` 
+                        ),
     initialize: function () {  
         this.model.on('change', this.render, this); 
         this.model.on('destroy', this.remove, this);
