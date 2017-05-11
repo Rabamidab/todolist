@@ -1,15 +1,13 @@
-import $ from 'jquery';
-
-let Router = Backbone.Router.extend({
+export const Router = Backbone.Router.extend({
     routes: {
-        ''     : 'index',
-        'app' : 'app' 
+        '': 'index',
+        'app': 'app',
     },
-    index: function() {
+    index: () => {
         $('.welcome').removeClass('welcome_hidden');
         $('.todolist').addClass('todolist_hidden'); 
     },
-    app: function() {
+    app: () => {
         $('.todolist').removeClass('todolist_hidden');
         $('.welcome').addClass('welcome_hidden');    
     }
@@ -17,4 +15,4 @@ let Router = Backbone.Router.extend({
 
 new Router();
 
-Backbone.history.start();
+// Backbone.history.start();

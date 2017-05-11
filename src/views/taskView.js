@@ -1,6 +1,4 @@
-import {App} from '../variables';
-import _ from 'underscore';
-import $ from 'jquery';
+import { App } from '../variables';
 
 export let TaskView = Backbone.View.extend({
     tagName: 'li',

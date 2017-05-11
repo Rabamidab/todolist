@@ -1,5 +1,5 @@
-import {App} from '../variables';
-import {TaskView} from '../views/taskView';
+import { App } from '../variables';
+import { TaskView } from '../views/taskView';
 
 App.Views.Tasks = Backbone.View.extend({
     // el: '.todolist__list',

@@ -1,6 +1,4 @@
-import $ from 'jquery';
-import _ from 'underscore';
-import {App} from '../variables';
+import { App } from '../variables';
 
 let tasksCollection = new App.Collections.Task([
     {
