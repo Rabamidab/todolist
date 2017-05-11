@@ -8,8 +8,43 @@ body{
     padding: 1rem;
 }
 
+.welcome{
+    position: absolute;
+    width: 100%;
+    top: 35vh;
+
+    &_hidden{
+        display: none;
+    }
+
+    &__header{
+        text-align: center;
+        color: #aaa
+    }
+
+    &__goto-app{
+        display: block;
+        width: 200px;
+        height: 100px;
+        margin: 1rem auto;
+        background-color: green;
+        text-align: center;
+        line-height: 100px;
+        font-size: 1.5rem;
+        text-decoration: none;
+        color: #000;
+        box-shadow: 0px 10px 25px 0px rgba(0,0,0,0.3);
+        border-radius: 20px 100px;
+        color: #efe;
+    }
+}
+
 .todolist{
     width: 100%;
+
+    &_hidden{
+        display: none;
+    }
 
     &__input{
         display: block;

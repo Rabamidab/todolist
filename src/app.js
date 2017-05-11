@@ -7,6 +7,7 @@ import './collections/taskCollection';
 import './views/tasksView';
 import './views/addTaskView';
 import './views/appView';
+import './router'
 
 // let tasksCollection = new App.Collections.Task([
 //     {

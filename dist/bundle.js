@@ -13911,6 +13911,8 @@ __webpack_require__(21);
 
 __webpack_require__(22);
 
+__webpack_require__(23);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
@@ -13922,7 +13924,7 @@ exports = module.exports = __webpack_require__(7)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n\n.todolist {\n  width: 100%; }\n  .todolist__input {\n    display: block;\n    width: 100%;\n    height: 3rem;\n    margin: 3rem auto;\n    font-size: 1.3rem;\n    border: none;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n  .todolist__list {\n    padding: 0; }\n  .todolist__task {\n    display: block;\n    box-sizing: border-box;\n    padding: 1rem;\n    border-bottom: 1px solid #cccccc;\n    cursor: pointer; }\n    .todolist__task:hover {\n      background-color: #cccccc; }\n    .todolist__task:last-child {\n      border: none; }\n  .todolist__checkbox {\n    display: block;\n    float: left; }\n", ""]);
+exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n\n.welcome {\n  position: absolute;\n  width: 100%;\n  top: 35vh; }\n  .welcome_hidden {\n    display: none; }\n  .welcome__header {\n    text-align: center;\n    color: #aaa; }\n  .welcome__goto-app {\n    display: block;\n    width: 200px;\n    height: 100px;\n    margin: 1rem auto;\n    background-color: green;\n    text-align: center;\n    line-height: 100px;\n    font-size: 1.5rem;\n    text-decoration: none;\n    color: #000;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);\n    border-radius: 20px 100px;\n    color: #efe; }\n\n.todolist {\n  width: 100%; }\n  .todolist_hidden {\n    display: none; }\n  .todolist__input {\n    display: block;\n    width: 100%;\n    height: 3rem;\n    margin: 3rem auto;\n    font-size: 1.3rem;\n    border: none;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n  .todolist__list {\n    padding: 0; }\n  .todolist__task {\n    display: block;\n    box-sizing: border-box;\n    padding: 1rem;\n    border-bottom: 1px solid #cccccc;\n    cursor: pointer; }\n    .todolist__task:hover {\n      background-color: #cccccc; }\n    .todolist__task:last-child {\n      border: none; }\n  .todolist__checkbox {\n    display: block;\n    float: left; }\n", ""]);
 
 // exports
 
@@ -14653,6 +14655,38 @@ _variables.App.Views.App = Backbone.View.extend({
 
 var appView = new _variables.App.Views.App();
 appView.render();
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _jquery = __webpack_require__(0);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Router = Backbone.Router.extend({
+    routes: {
+        '': 'index',
+        'app': 'app'
+    },
+    index: function index() {
+        (0, _jquery2.default)('.welcome').removeClass('welcome_hidden');
+        (0, _jquery2.default)('.todolist').addClass('todolist_hidden');
+    },
+    app: function app() {
+        (0, _jquery2.default)('.todolist').removeClass('todolist_hidden');
+        (0, _jquery2.default)('.welcome').addClass('welcome_hidden');
+    }
+});
+
+new Router();
+
+Backbone.history.start();
 
 /***/ })
 /******/ ]);
