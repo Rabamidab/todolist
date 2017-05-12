@@ -1,27 +1,17 @@
-import { App } from '../variables';
+import AddTaskView from '../views/addTaskView';
+import TasksView from '../views/tasksView';
+import { tasksCollection } from '../variables';
 
-let tasksCollection = new App.Collections.Task([
-    {
-        title: 'Сходить в магазин'
-    },
-    {
-        title: 'Получить почту'
-    },
-    {
-        title: 'Сходить на работу'
-    },
-]);
-
-App.Views.App = Backbone.View.extend({
-    el: '.todolist',
+const AppView = Backbone.View.extend({
+    className: 'todolist',
     render() {
-        let addTaskView = new App.Views.AddTask({ collection: tasksCollection });
-        let tasksView = new App.Views.Tasks({ collection: tasksCollection});
+        const addTaskView = new AddTaskView({ collection: tasksCollection });
+        const tasksView = new TasksView({ collection: tasksCollection });
         this.$el.html();
         this.$el.append(addTaskView.render().$el);
         this.$el.append(tasksView.render().$el);
-    }
+        return this;
+    },
 });
 
-let appView = new App.Views.App();
-appView.render();
+export default AppView;

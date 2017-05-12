@@ -1,25 +1,23 @@
-import {TaskModel} from '../models/taskModel';
-import {KEYS} from '../variables';
-import $ from 'jquery';
+import TaskModel from '../models/taskModel';
+import { KEYS } from '../variables';
 
-App.Views.AddTask = Backbone.View.extend({
-    // el: '.todolist__input',
+const AddTaskView = Backbone.View.extend({
     tagName: 'input',
     className: 'todolist__input',
     events: {
-        'keypress' : 'submit'
+        keypress: 'submit',
     },
-    initialize: function() {
-    },
-    submit: function(key) {
-        if ( key.keyCode == KEYS.ENTER ) {
-            let newTaskTitle =  $(this.el).val();
-            let newTask = new TaskModel({ title: newTaskTitle });
+    submit(key) {
+        if (key.keyCode === KEYS.ENTER) {
+            const newTaskTitle = $(this.el).val();
+            const newTask = new TaskModel({ title: newTaskTitle });
             this.collection.add(newTask);
         }
     },
-    render: function () {
-        this.$el.attr({type: 'text', placeholder: 'Ваша новая задача'});
+    render() {
+        this.$el.attr({ type: 'text', placeholder: 'Ваша новая задача' });
         return this;
-    }
+    },
 });
+
+export default AddTaskView;

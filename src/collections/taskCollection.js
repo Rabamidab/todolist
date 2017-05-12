@@ -1,5 +1,7 @@
-import {TaskModel} from '../models/taskModel';
+import TaskModel from '../models/taskModel';
 
-App.Collections.Task = Backbone.Collection.extend({
-    model: TaskModel
+const TaskCollection = Backbone.Collection.extend({
+    model: TaskModel,
 });
+
+export default TaskCollection;

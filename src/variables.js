@@ -1,18 +1,19 @@
-import _ from 'underscore';
-import $ from 'jquery';
+import TaskCollection from './collections/taskCollection';
 
 const KEYS = {
-    ENTER: 13
+    ENTER: 13,
 };
 
-window.App = {
-    Models: {},
-    Collections: {},
-    Views:{}    
-};
+const tasksCollection = new TaskCollection([
+    {
+        title: 'Сходить в магазин',
+    },
+    {
+        title: 'Получить почту',
+    },
+    {
+        title: 'Сходить на работу',
+    },
+]);
 
-let template = function(id) {
-    return _.template( $('#' + id).html() );
-};
-
-export {KEYS, App, template};
+export { KEYS, tasksCollection };

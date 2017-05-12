@@ -1,18 +1,20 @@
-export const Router = Backbone.Router.extend({
+import StartView from './views/startView';
+import AppView from './views/appView';
+
+const Router = Backbone.Router.extend({
     routes: {
         '': 'index',
-        'app': 'app',
+        app: 'app',
     },
-    index: () => {
-        $('.welcome').removeClass('welcome_hidden');
-        $('.todolist').addClass('todolist_hidden'); 
+    index() {
+        const startView = new StartView();
+        $('#root').html(startView.render().el);
     },
-    app: () => {
-        $('.todolist').removeClass('todolist_hidden');
-        $('.welcome').addClass('welcome_hidden');    
-    }
+    app() {
+        const appView = new AppView();
+        $('#root').html(appView.render().el);
+        $('.todolist').wrap('<div class="container"></div>');
+    },
 });
 
-new Router();
-
-// Backbone.history.start();
+export default Router;

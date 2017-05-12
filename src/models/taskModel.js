@@ -1,7 +1,9 @@
-export let TaskModel = Backbone.Model.extend({
-    validate: function (attrs) { 
-        if ( ! attrs.title ) {
+const TaskModel = Backbone.Model.extend({
+    validate(attrs) {
+        if (!attrs.title) {
             return 'Имя задачи должно быть валидным!';
         }
-    }
+    },
 });
+
+export default TaskModel;
