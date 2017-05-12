@@ -12471,6 +12471,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var AddTaskView = Backbone.View.extend({
     tagName: 'input',
     className: 'todolist__input',
+    attributes: {
+        type: 'text',
+        placeholder: 'Ваша новая задача'
+    },
     events: {
         keypress: 'submit'
     },
@@ -12482,7 +12486,6 @@ var AddTaskView = Backbone.View.extend({
         }
     },
     render: function render() {
-        this.$el.attr({ type: 'text', placeholder: 'Ваша новая задача' });
         return this;
     }
 });

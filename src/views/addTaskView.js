@@ -4,6 +4,10 @@ import { KEYS } from '../variables';
 const AddTaskView = Backbone.View.extend({
     tagName: 'input',
     className: 'todolist__input',
+    attributes: {
+        type: 'text',
+        placeholder: 'Ваша новая задача',
+    },
     events: {
         keypress: 'submit',
     },
@@ -15,7 +19,6 @@ const AddTaskView = Backbone.View.extend({
         }
     },
     render() {
-        this.$el.attr({ type: 'text', placeholder: 'Ваша новая задача' });
         return this;
     },
 });
