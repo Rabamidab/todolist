@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -86,7 +86,7 @@
 
   // Set up Backbone appropriately for the environment. Start with AMD.
   if (true) {
-    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(19), __webpack_require__(1), exports], __WEBPACK_AMD_DEFINE_RESULT__ = function(_, $, exports) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(21), __webpack_require__(2), exports], __WEBPACK_AMD_DEFINE_RESULT__ = function(_, $, exports) {
       // Export global even in AMD case in case this script is loaded with
       // others that may still expect a global Backbone.
       root.Backbone = factory(root, exports, _, $);
@@ -1992,10 +1992,47 @@
   return Backbone;
 });
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(_, Backbone) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.vent = exports.tasksCollection = exports.KEYS = undefined;
+
+var _taskCollection = __webpack_require__(9);
+
+var _taskCollection2 = _interopRequireDefault(_taskCollection);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var KEYS = {
+    ENTER: 13
+};
+
+var tasksCollection = new _taskCollection2.default([{
+    title: 'Сходить в магазин'
+}, {
+    title: 'Получить почту'
+}, {
+    title: 'Сходить на работу'
+}]);
+
+var vent = _.extend({}, Backbone.Events);
+
+exports.KEYS = KEYS;
+exports.tasksCollection = tasksCollection;
+exports.vent = vent;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(0)))
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -12255,7 +12292,7 @@ return jQuery;
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12279,547 +12316,7 @@ exports.default = TaskModel;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(_, Backbone) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.vent = exports.tasksCollection = exports.KEYS = undefined;
-
-var _taskCollection = __webpack_require__(8);
-
-var _taskCollection2 = _interopRequireDefault(_taskCollection);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var KEYS = {
-    ENTER: 13
-};
-
-var tasksCollection = new _taskCollection2.default([{
-    title: 'Сходить в магазин'
-}, {
-    title: 'Получить почту'
-}, {
-    title: 'Сходить на работу'
-}]);
-
-var vent = _.extend({}, Backbone.Events);
-
-exports.KEYS = KEYS;
-exports.tasksCollection = tasksCollection;
-exports.vent = vent;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16), __webpack_require__(0)))
-
-/***/ }),
 /* 4 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone, $) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _startView = __webpack_require__(11);
-
-var _startView2 = _interopRequireDefault(_startView);
-
-var _appView = __webpack_require__(10);
-
-var _appView2 = _interopRequireDefault(_appView);
-
-var _variables = __webpack_require__(3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Router = Backbone.Router.extend({
-    routes: {
-        '': 'index',
-        // app: 'app',
-        'app/:id': 'app'
-    },
-    appView: {
-        instance: undefined,
-        setInstance: function setInstance(view) {
-            this.instance = view;
-        },
-        getInstance: function getInstance() {
-            return this.instance;
-        },
-        remove: function remove() {
-            if (this.instance !== undefined) {
-                this.instance.remove();
-                this.instance.unbind();
-                this.instance = undefined;
-            }
-        }
-    },
-    index: function index() {
-        this.appView.remove();
-        this.appView.setInstance(new _startView2.default());
-        $('#root').html(this.appView.getInstance().render().el);
-    },
-
-    // app() {
-    //     this.appView.remove();
-    //     this.appView.setInstance(new AppView());
-    //     $('#root').html(this.appView.getInstance().render().el);
-    //     $('.todolist').wrap('<div class="container"></div>');
-    // },
-    app: function app(id) {
-        this.appView.remove();
-        this.appView.setInstance(new _appView2.default());
-        $('#root').html(this.appView.getInstance().render().el);
-        $('.todolist').wrap('<div class="container"></div>');
-        _variables.vent.trigger('appfilt:show', id);
-    }
-});
-
-exports.default = Router;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(1)))
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(14);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(17)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./style.scss", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./style.scss");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone) {
-
-__webpack_require__(6);
-
-var _router = __webpack_require__(5);
-
-var _router2 = _interopRequireDefault(_router);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-new _router2.default();
-Backbone.history.start();
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _taskModel = __webpack_require__(2);
-
-var _taskModel2 = _interopRequireDefault(_taskModel);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var TaskCollection = Backbone.Collection.extend({
-    model: _taskModel2.default
-
-});
-
-exports.default = TaskCollection;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone, $) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _taskModel = __webpack_require__(2);
-
-var _taskModel2 = _interopRequireDefault(_taskModel);
-
-var _variables = __webpack_require__(3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var AddTaskView = Backbone.View.extend({
-    tagName: 'input',
-    className: 'todolist__input',
-    attributes: {
-        type: 'text',
-        placeholder: 'Ваша новая задача'
-    },
-    events: {
-        keypress: 'submit'
-    },
-    submit: function submit(key) {
-        if (key.keyCode === _variables.KEYS.ENTER) {
-            var newTaskTitle = $(this.el).val();
-            var newTask = new _taskModel2.default({ title: newTaskTitle });
-            this.collection.add(newTask);
-        }
-    },
-    render: function render() {
-        return this;
-    }
-});
-
-exports.default = AddTaskView;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(1)))
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _addTaskView = __webpack_require__(9);
-
-var _addTaskView2 = _interopRequireDefault(_addTaskView);
-
-var _tasksView = __webpack_require__(13);
-
-var _tasksView2 = _interopRequireDefault(_tasksView);
-
-var _tasksFilterView = __webpack_require__(21);
-
-var _tasksFilterView2 = _interopRequireDefault(_tasksFilterView);
-
-var _variables = __webpack_require__(3);
-
-var _tasksFilterModel = __webpack_require__(22);
-
-var _tasksFilterModel2 = _interopRequireDefault(_tasksFilterModel);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var AppView = Backbone.View.extend({
-    className: 'todolist',
-    render: function render() {
-        this.$el.html();
-
-        var addTaskView = new _addTaskView2.default({ collection: _variables.tasksCollection });
-        this.$el.append(addTaskView.render().$el);
-
-        var tasksView = new _tasksView2.default({ collection: _variables.tasksCollection });
-        this.$el.append(tasksView.render().$el);
-
-        var tasksFilterModel = new _tasksFilterModel2.default();
-        var tasksFilterView = new _tasksFilterView2.default({ model: tasksFilterModel });
-        this.$el.append(tasksFilterView.render().$el);
-
-        return this;
-    }
-});
-
-exports.default = AppView;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var StartView = Backbone.View.extend({
-    className: 'welcome',
-    template: '\n        <h2 class="welcome__header">\u0427\u0442\u043E\u0431\u044B \u043E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u043D\u0430\u0436\u043C\u0438\u0442\u0435 \u043D\u0430 \u043A\u043D\u043E\u043F\u043A\u0443.</h2>\n        <a class="welcome__goto-app" href="#app">\u041E\u0442\u043A\u0440\u044B\u0442\u044C</a>\n    ',
-    render: function render() {
-        this.$el.html(this.template);
-        return this;
-    }
-});
-
-exports.default = StartView;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone, _, $) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _variables = __webpack_require__(3);
-
-var TaskView = Backbone.View.extend({
-    tagName: 'li',
-    className: 'todolist__task',
-    template: _.template('\n        <input class="todolist__checked" type="checkbox">\n        <span class="todolist__list-text">\n            <%= title %>\n        </span>\n        <button class="todolist__edit-task">\n            Edit\n        </button> \n        <button class="todolist__delete-task">\n            Delete\n        </button>\n    '),
-    initialize: function initialize() {
-        this.model.on('change', this.render, this);
-        this.model.on('destroy', this.remove, this);
-        _variables.vent.on('appfilt:show', this.changeCurrentID, this);
-    },
-
-    currentId: '',
-    changeCurrentID: function changeCurrentID(id) {
-        this.currentId = id;
-        this.show(id);
-    },
-    show: function show(id) {
-        if (id === 'filter') {
-            if (this.model.get('done')) {
-                this.$el.hide();
-            }
-        }
-    },
-    render: function render() {
-        var template = this.template(this.model.toJSON());
-        this.$el.html(template);
-        if (this.model.get('done')) {
-            this.$el.find('.todolist__checked').attr('checked', 'true');
-        }
-        this.show(this.currentId);
-        return this;
-    },
-
-    events: {
-        'click .todolist__edit-task': 'editTask',
-        'click .todolist__delete-task': 'destroy',
-        'click .todolist__list-text': 'edit',
-        'focusout .todolist__list-text': 'focusout',
-        'click .todolist__checked': 'checked'
-    },
-    editTask: function editTask() {
-        var newTaskTitle = prompt('Как переименуем задачу?', this.model.get('title'));
-        this.model.set('title', newTaskTitle, { validate: true });
-    },
-    focusout: function focusout(e) {
-        var newTaskTitle = $(e.currentTarget).removeAttr('contenteditable').html();
-        if (newTaskTitle !== '') {
-            this.model.set('title', newTaskTitle, { validate: true });
-        } else {
-            this.model.destroy();
-        }
-    },
-    edit: function edit(e) {
-        $(e.currentTarget).attr('contenteditable', true).focus();
-    },
-    destroy: function destroy() {
-        this.model.destroy();
-    },
-    checked: function checked(e) {
-        var isChecked = e.currentTarget.checked;
-        this.model.set('done', isChecked, { validate: true });
-    }
-});
-
-exports.default = TaskView;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(16), __webpack_require__(1)))
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _taskView = __webpack_require__(12);
-
-var _taskView2 = _interopRequireDefault(_taskView);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var TasksView = Backbone.View.extend({
-    tagName: 'ul',
-    className: 'todolist__list',
-    initialize: function initialize() {
-        this.collection.on('add', this.addOne, this);
-    },
-    render: function render() {
-        this.collection.each(this.addOne, this);
-        return this;
-    },
-    addOne: function addOne(task) {
-        // создавать новый дочерний вид
-        var taskView = new _taskView2.default({ model: task });
-        // добавлять его в корневой элемент
-        this.$el.append(taskView.render().el);
-    }
-});
-
-exports.default = TasksView;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(15)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n\n.welcome {\n  position: absolute;\n  width: 100%;\n  top: 35vh; }\n  .welcome_hidden {\n    display: none; }\n  .welcome__header {\n    text-align: center;\n    color: #aaa; }\n  .welcome__goto-app {\n    display: block;\n    width: 200px;\n    height: 100px;\n    margin: 1rem auto;\n    background-color: green;\n    text-align: center;\n    line-height: 100px;\n    font-size: 1.5rem;\n    text-decoration: none;\n    color: #000;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);\n    border-radius: 20px 100px;\n    color: #efe; }\n\n.todolist {\n  width: 100%; }\n  .todolist_hidden {\n    display: none; }\n  .todolist__input {\n    box-sizing: border-box;\n    display: block;\n    width: 100%;\n    padding: 1.3rem;\n    margin: 3rem auto;\n    font-size: 1.3rem;\n    border: none;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n  .todolist__list {\n    padding: 0; }\n  .todolist__task {\n    display: block;\n    box-sizing: border-box;\n    padding: 1rem;\n    border-bottom: 1px solid #cccccc;\n    cursor: pointer; }\n    .todolist__task:hover {\n      background-color: #cccccc; }\n    .todolist__task:last-child {\n      border: none; }\n  .todolist__checkbox {\n    display: block;\n    float: left; }\n  .todolist__filter {\n    box-sizing: border-box;\n    display: block;\n    width: 100%;\n    padding: 1.3rem;\n    color: #aaa;\n    font-size: 1.3rem;\n    text-align: center;\n    cursor: pointer;\n    border: 1px dotted #cccccc;\n    box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.05);\n    user-select: none; }\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -29908,10 +29405,576 @@ function toComment(sourceMap) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(20)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(22)(module)))
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Backbone, $) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _startView = __webpack_require__(13);
+
+var _startView2 = _interopRequireDefault(_startView);
+
+var _appView = __webpack_require__(12);
+
+var _appView2 = _interopRequireDefault(_appView);
+
+var _variables = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Router = Backbone.Router.extend({
+    routes: {
+        '': 'index',
+        // app: 'app',
+        'app/:id': 'app'
+    },
+    appView: {
+        instance: undefined,
+        setInstance: function setInstance(view) {
+            this.instance = view;
+        },
+        getInstance: function getInstance() {
+            return this.instance;
+        },
+        remove: function remove() {
+            if (this.instance !== undefined) {
+                this.instance.remove();
+                this.instance.unbind();
+                this.instance = undefined;
+            }
+        }
+    },
+    index: function index() {
+        this.appView.remove();
+        this.appView.setInstance(new _startView2.default());
+        $('#root').html(this.appView.getInstance().render().el);
+    },
+
+    // app() {
+    //     this.appView.remove();
+    //     this.appView.setInstance(new AppView());
+    //     $('#root').html(this.appView.getInstance().render().el);
+    //     $('.todolist').wrap('<div class="container"></div>');
+    // },
+    app: function app(id) {
+        this.appView.remove();
+        this.appView.setInstance(new _appView2.default());
+        $('#root').html(this.appView.getInstance().render().el);
+        $('.todolist').wrap('<div class="container"></div>');
+        _variables.vent.trigger('appfilt:show', id);
+    }
+});
+
+exports.default = Router;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(2)))
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(17);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(19)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./style.scss", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/sass-loader/lib/loader.js!./style.scss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Backbone) {
+
+__webpack_require__(7);
+
+var _router = __webpack_require__(6);
+
+var _router2 = _interopRequireDefault(_router);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+new _router2.default();
+Backbone.history.start();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Backbone) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _taskModel = __webpack_require__(3);
+
+var _taskModel2 = _interopRequireDefault(_taskModel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TaskCollection = Backbone.Collection.extend({
+    model: _taskModel2.default
+
+});
+
+exports.default = TaskCollection;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Backbone) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var TasksFilterModel = Backbone.Model.extend({
+    defaults: {
+        isChecked: false
+    }
+});
+
+exports.default = TasksFilterModel;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Backbone, $) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _taskModel = __webpack_require__(3);
+
+var _taskModel2 = _interopRequireDefault(_taskModel);
+
+var _variables = __webpack_require__(1);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AddTaskView = Backbone.View.extend({
+    tagName: 'input',
+    className: 'todolist__input',
+    attributes: {
+        type: 'text',
+        placeholder: 'Ваша новая задача'
+    },
+    events: {
+        keypress: 'submit'
+    },
+    submit: function submit(key) {
+        if (key.keyCode === _variables.KEYS.ENTER) {
+            var newTaskTitle = $(this.el).val();
+            var newTask = new _taskModel2.default({ title: newTaskTitle });
+            this.collection.add(newTask);
+        }
+    },
+    render: function render() {
+        return this;
+    }
+});
+
+exports.default = AddTaskView;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(2)))
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Backbone) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _addTaskView = __webpack_require__(11);
+
+var _addTaskView2 = _interopRequireDefault(_addTaskView);
+
+var _tasksView = __webpack_require__(16);
+
+var _tasksView2 = _interopRequireDefault(_tasksView);
+
+var _tasksFilterView = __webpack_require__(15);
+
+var _tasksFilterView2 = _interopRequireDefault(_tasksFilterView);
+
+var _variables = __webpack_require__(1);
+
+var _tasksFilterModel = __webpack_require__(10);
+
+var _tasksFilterModel2 = _interopRequireDefault(_tasksFilterModel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AppView = Backbone.View.extend({
+    className: 'todolist',
+    render: function render() {
+        this.$el.html();
+
+        var addTaskView = new _addTaskView2.default({ collection: _variables.tasksCollection });
+        this.$el.append(addTaskView.render().$el);
+
+        var tasksView = new _tasksView2.default({ collection: _variables.tasksCollection });
+        this.$el.append(tasksView.render().$el);
+
+        var tasksFilterModel = new _tasksFilterModel2.default();
+        var tasksFilterView = new _tasksFilterView2.default({ model: tasksFilterModel });
+        this.$el.append(tasksFilterView.render().$el);
+
+        return this;
+    }
+});
+
+exports.default = AppView;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Backbone) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var StartView = Backbone.View.extend({
+    className: 'welcome',
+    template: '\n        <h2 class="welcome__header">\u0427\u0442\u043E\u0431\u044B \u043E\u0442\u043A\u0440\u044B\u0442\u044C \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0435 \u043D\u0430\u0436\u043C\u0438\u0442\u0435 \u043D\u0430 \u043A\u043D\u043E\u043F\u043A\u0443.</h2>\n        <a class="welcome__goto-app" href="#app/all">\u041E\u0442\u043A\u0440\u044B\u0442\u044C</a>\n    ',
+    render: function render() {
+        this.$el.html(this.template);
+        return this;
+    }
+});
+
+exports.default = StartView;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Backbone, _, $) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _variables = __webpack_require__(1);
+
+var TaskView = Backbone.View.extend({
+    tagName: 'li',
+    className: 'todolist__task',
+    template: _.template('\n        <input class="todolist__checked" type="checkbox">\n        <span class="todolist__list-text">\n            <%= title %>\n        </span>\n        <button class="todolist__edit-task">\n            Edit\n        </button> \n        <button class="todolist__delete-task">\n            Delete\n        </button>\n    '),
+    initialize: function initialize() {
+        this.model.on('change', this.render, this);
+        this.model.on('destroy', this.remove, this);
+        _variables.vent.on('appfilt:show', this.changeCurrentID, this);
+    },
+
+    currentId: '',
+    changeCurrentID: function changeCurrentID(id) {
+        this.currentId = id;
+        this.show(id);
+    },
+    show: function show(id) {
+        if (id === 'filter') {
+            if (this.model.get('done')) {
+                this.$el.hide();
+            }
+        }
+    },
+    render: function render() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        if (this.model.get('done')) {
+            this.$el.find('.todolist__checked').attr('checked', 'true');
+        }
+        this.show(this.currentId);
+        return this;
+    },
+
+    events: {
+        'click .todolist__edit-task': 'editTask',
+        'click .todolist__delete-task': 'destroy',
+        'click .todolist__list-text': 'edit',
+        'focusout .todolist__list-text': 'focusout',
+        'click .todolist__checked': 'checked'
+    },
+    editTask: function editTask() {
+        var newTaskTitle = prompt('Как переименуем задачу?', this.model.get('title'));
+        this.model.set('title', newTaskTitle, { validate: true });
+    },
+    focusout: function focusout(e) {
+        var newTaskTitle = $(e.currentTarget).removeAttr('contenteditable').html();
+        if (newTaskTitle !== '') {
+            this.model.set('title', newTaskTitle, { validate: true });
+        } else {
+            this.model.destroy();
+        }
+    },
+    edit: function edit(e) {
+        $(e.currentTarget).attr('contenteditable', true).focus();
+    },
+    destroy: function destroy() {
+        this.model.destroy();
+    },
+    checked: function checked(e) {
+        var isChecked = e.currentTarget.checked;
+        this.model.set('done', isChecked, { validate: true });
+    }
+});
+
+exports.default = TaskView;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(4), __webpack_require__(2)))
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Backbone) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var TasksFilterView = Backbone.View.extend({
+    tagName: 'a',
+    className: 'todolist__filter',
+    template: '\n        \u0421\u043A\u0440\u044B\u0442\u044C \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u043D\u044B\u0435 \u0437\u0430\u0434\u0430\u043D\u0438\u044F.\n    ',
+    events: {
+        click: 'checked'
+    },
+    initialize: function initialize() {
+        this.model.on('change', this.changed, this);
+    },
+    checked: function checked() {
+        var isChecked = !this.model.get('isChecked');
+        this.model.set({ isChecked: isChecked });
+    },
+    changed: function changed() {
+        if (this.model.get('isChecked')) {
+            this.$el.html('Скрыть выполненные задания');
+            this.$el.attr('href', '#app/all');
+            this.isChecked = false;
+        } else {
+            this.$el.html('Показать выполненные задания');
+            this.$el.attr('href', '#app/filter');
+            this.isChecked = true;
+        }
+    },
+    render: function render() {
+        this.checked();
+        return this;
+    }
+});
+
+exports.default = TasksFilterView;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(Backbone) {
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _taskView = __webpack_require__(14);
+
+var _taskView2 = _interopRequireDefault(_taskView);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TasksView = Backbone.View.extend({
+    tagName: 'ul',
+    className: 'todolist__list',
+    initialize: function initialize() {
+        this.collection.on('add', this.addOne, this);
+    },
+    render: function render() {
+        this.collection.each(this.addOne, this);
+        return this;
+    },
+    addOne: function addOne(task) {
+        // создавать новый дочерний вид
+        var taskView = new _taskView2.default({ model: task });
+        // добавлять его в корневой элемент
+        this.$el.append(taskView.render().el);
+    }
+});
+
+exports.default = TasksView;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(18)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "body {\n  background-color: #e6e6e6; }\n\n.container {\n  max-width: 960px;\n  margin: 0 auto;\n  padding: 1rem; }\n\n.welcome {\n  position: absolute;\n  width: 100%;\n  top: 35vh; }\n  .welcome_hidden {\n    display: none; }\n  .welcome__header {\n    text-align: center;\n    color: #aaa; }\n  .welcome__goto-app {\n    display: block;\n    width: 200px;\n    height: 100px;\n    margin: 1rem auto;\n    background-color: green;\n    text-align: center;\n    line-height: 100px;\n    font-size: 1.5rem;\n    text-decoration: none;\n    color: #000;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3);\n    border-radius: 20px 100px;\n    color: #efe; }\n\n.todolist {\n  width: 100%; }\n  .todolist_hidden {\n    display: none; }\n  .todolist__input {\n    box-sizing: border-box;\n    display: block;\n    width: 100%;\n    padding: 1.3rem;\n    margin: 3rem auto;\n    font-size: 1.3rem;\n    border: none;\n    box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.3); }\n  .todolist__list {\n    padding: 0; }\n  .todolist__task {\n    display: block;\n    box-sizing: border-box;\n    padding: 1rem;\n    border-bottom: 1px solid #cccccc;\n    cursor: pointer; }\n    .todolist__task:hover {\n      background-color: #cccccc; }\n    .todolist__task:last-child {\n      border: none; }\n  .todolist__checkbox {\n    display: block;\n    float: left; }\n  .todolist__filter {\n    box-sizing: border-box;\n    display: block;\n    width: 100%;\n    padding: 1.3rem;\n    color: #aaa;\n    font-size: 1.3rem;\n    text-align: center;\n    cursor: pointer;\n    border: 1px dotted #cccccc;\n    box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.05);\n    user-select: none; }\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -29948,7 +30011,7 @@ var stylesInDom = {},
 	singletonElement = null,
 	singletonCounter = 0,
 	styleElementsInsertedAtTop = [],
-	fixUrls = __webpack_require__(18);
+	fixUrls = __webpack_require__(20);
 
 module.exports = function(list, options) {
 	if(typeof DEBUG !== "undefined" && DEBUG) {
@@ -30224,7 +30287,7 @@ function updateLink(linkElement, options, obj) {
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 
@@ -30319,7 +30382,7 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -31874,7 +31937,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -31900,70 +31963,6 @@ module.exports = function(module) {
 	return module;
 };
 
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var TasksFilterView = Backbone.View.extend({
-    tagName: 'a',
-    className: 'todolist__filter',
-    template: '\n        \u0421\u043A\u0440\u044B\u0442\u044C \u0432\u044B\u043F\u043E\u043B\u043D\u0435\u043D\u043D\u044B\u0435 \u0437\u0430\u0434\u0430\u043D\u0438\u044F.\n    ',
-    events: {
-        'click': 'checked'
-    },
-    initialize: function initialize() {
-        this.model.on('change', this.changed, this);
-    },
-    checked: function checked() {
-        var isChecked = !this.model.get('isChecked');
-        this.model.set({ isChecked: isChecked });
-    },
-    changed: function changed() {
-        console.log(this.model.get('isChecked'));
-        if (this.model.get('isChecked')) {
-            this.$el.html('Скрыть выполненные задания');
-            this.$el.attr('href', '#app/all');
-            this.isChecked = false;
-        } else {
-            this.$el.html('Показать выполненные задания');
-            this.$el.attr('href', '#app/filter');
-            this.isChecked = true;
-        }
-    },
-    render: function render() {
-        this.checked();
-        return this;
-    }
-});
-
-exports.default = TasksFilterView;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone) {
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var TasksFilterModel = Backbone.Model.extend({
-    defaults: {
-        isChecked: false
-    }
-});
-
-exports.default = TasksFilterModel;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ })
 /******/ ]);

@@ -27,7 +27,7 @@ const TaskView = Backbone.View.extend({
     },
     show(id) {
         if (id === 'filter') {
-            if (this.model.get('done')){
+            if (this.model.get('done')) {
                 this.$el.hide();
             }
         }
@@ -35,8 +35,8 @@ const TaskView = Backbone.View.extend({
     render() {
         const template = this.template(this.model.toJSON());
         this.$el.html(template);
-        if (this.model.get('done')){
-            this.$el.find('.todolist__checked').attr('checked','true');
+        if (this.model.get('done')) {
+            this.$el.find('.todolist__checked').attr('checked', 'true');
         }
         this.show(this.currentId);
         return this;

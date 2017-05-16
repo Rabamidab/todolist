@@ -5,23 +5,21 @@ const TasksFilterView = Backbone.View.extend({
         Скрыть выполненные задания.
     `,
     events: {
-        'click': 'checked',
+        click: 'checked',
     },
     initialize() {
         this.model.on('change', this.changed, this);
     },
-    checked(){
-        let isChecked = !this.model.get('isChecked');
-        this.model.set({isChecked: isChecked,});
+    checked() {
+        const isChecked = !this.model.get('isChecked');
+        this.model.set({ isChecked: isChecked });
     },
     changed() {
-        console.log(this.model.get('isChecked'));
-        if (this.model.get('isChecked')){
+        if (this.model.get('isChecked')) {
             this.$el.html('Скрыть выполненные задания');
             this.$el.attr('href', '#app/all');
             this.isChecked = false;
-        }
-        else{
+        } else {
             this.$el.html('Показать выполненные задания');
             this.$el.attr('href', '#app/filter');
             this.isChecked = true;
