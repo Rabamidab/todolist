@@ -31782,7 +31782,7 @@ exports.default = StartView;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(Backbone, _, $) {
+/* WEBPACK VAR INJECTION */(function(Backbone, _) {
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -31795,33 +31795,15 @@ var TaskView = Backbone.View.extend({
         this.model.on('change', this.render, this);
         this.model.on('destroy', this.remove, this);
     },
-    render: function render() {
-        var template = this.template(this.model.toJSON());
-        this.$el.html(template);
-        return this;
-    },
 
     events: {
         'click .todolist__edit-task': 'editTask',
         'click .todolist__delete-task': 'destroy',
-        'click .todolist__list-text': 'edit',
-        'focusout .todolist__list-text': 'focusout',
         'click .todolist__checked': 'checked'
     },
     editTask: function editTask() {
         var newTaskTitle = prompt('Как переименуем задачу?', this.model.get('title'));
         this.model.set('title', newTaskTitle, { validate: true });
-    },
-    focusout: function focusout(e) {
-        var newTaskTitle = $(e.currentTarget).removeAttr('contenteditable').html();
-        if (newTaskTitle !== '') {
-            this.model.set('title', newTaskTitle, { validate: true });
-        } else {
-            this.model.destroy();
-        }
-    },
-    edit: function edit(e) {
-        $(e.currentTarget).attr('contenteditable', true).focus();
     },
     destroy: function destroy() {
         this.model.destroy();
@@ -31829,11 +31811,16 @@ var TaskView = Backbone.View.extend({
     checked: function checked(e) {
         var isChecked = e.currentTarget.checked;
         this.model.set('done', isChecked, { validate: true });
+    },
+    render: function render() {
+        var template = this.template(this.model.toJSON());
+        this.$el.html(template);
+        return this;
     }
 });
 
 exports.default = TaskView;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(13), __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(13)))
 
 /***/ }),
 /* 20 */
@@ -31846,8 +31833,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var TasksFilterView = Backbone.View.extend({
-    // tagName: 'a',
-    // className: 'todolist__filter',
     hideTemplate: '<a href="#app/all" class="todolist__filter">Скрыть выполненные задания</a>',
     showTemplate: '<a href="#app/filter" class="todolist__filter">Показать выполненные задания</a>',
     events: {

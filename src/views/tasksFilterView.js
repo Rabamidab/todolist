@@ -1,6 +1,4 @@
 const TasksFilterView = Backbone.View.extend({
-    // tagName: 'a',
-    // className: 'todolist__filter',
     hideTemplate: '<a href="#app/all" class="todolist__filter">Скрыть выполненные задания</a>',
     showTemplate: '<a href="#app/filter" class="todolist__filter">Показать выполненные задания</a>',
     events: {
