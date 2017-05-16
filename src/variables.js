@@ -16,4 +16,6 @@ const tasksCollection = new TaskCollection([
     },
 ]);
 
-export { KEYS, tasksCollection };
+const vent = _.extend({}, Backbone.Events);
+
+export { KEYS, tasksCollection, vent };
