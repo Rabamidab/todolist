@@ -5,14 +5,16 @@ import { tasksCollection } from '../variables';
 import TasksFilterModel from '../models/tasksFilterModel'
 
 const AppView = Backbone.View.extend({
-    className: 'todolist',
+    initialize: function() {
+        const template = _.template('<div class="container"><%= title %></div>');
+        const html = '<div class="container todolist"></div>';
+        this.setElement(html);
+    },
     render() {
-        this.$el.html();
-
         const addTaskView = new AddTaskView({ collection: tasksCollection });
         this.$el.append(addTaskView.render().$el);
 
-        const tasksView = new TasksView({ collection: tasksCollection });
+        const tasksView = new TasksView({ collection: tasksCollection, model: tasksFilterModel });
         this.$el.append(tasksView.render().$el);
 
         const tasksFilterModel = new TasksFilterModel(); 

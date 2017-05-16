@@ -1,10 +1,12 @@
-import { vent } from '../variables';
-
 const TaskView = Backbone.View.extend({
     tagName: 'li',
     className: 'todolist__task',
     template: _.template(`
-        <input class="todolist__checked" type="checkbox">
+        <% if ( done ) {%>
+            <input class="todolist__checked" type="checkbox" checked>
+        <% } else { %>
+            <input class="todolist__checked" type="checkbox">
+        <% } %>
         <span class="todolist__list-text">
             <%= title %>
         </span>
@@ -18,27 +20,10 @@ const TaskView = Backbone.View.extend({
     initialize() {
         this.model.on('change', this.render, this);
         this.model.on('destroy', this.remove, this);
-        vent.on('appfilt:show', this.changeCurrentID, this);
-    },
-    currentId: '',
-    changeCurrentID(id) {
-        this.currentId = id;
-        this.show(id);
-    },
-    show(id) {
-        if (id === 'filter') {
-            if (this.model.get('done')) {
-                this.$el.hide();
-            }
-        }
     },
     render() {
         const template = this.template(this.model.toJSON());
         this.$el.html(template);
-        if (this.model.get('done')) {
-            this.$el.find('.todolist__checked').attr('checked', 'true');
-        }
-        this.show(this.currentId);
         return this;
     },
     events: {

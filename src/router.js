@@ -38,8 +38,8 @@ const Router = Backbone.Router.extend({
     app(id) {
         this.appView.remove();
         this.appView.setInstance(new AppView());
-        $('#root').html(this.appView.getInstance().render().el);
-        $('.todolist').wrap('<div class="container"></div>');
+        $('#root').html(this.appView.getInstance().render().$el);
+        // $('.todolist').wrap('<div class="container"></div>');
         vent.trigger('appfilt:show', id);
     },
 });

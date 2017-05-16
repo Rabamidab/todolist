@@ -1,9 +1,8 @@
 const TasksFilterView = Backbone.View.extend({
-    tagName: 'a',
-    className: 'todolist__filter',
-    template: `
-        Скрыть выполненные задания.
-    `,
+    // tagName: 'a',
+    // className: 'todolist__filter',
+    hideTemplate: '<a href="#app/all" class="todolist__filter">Скрыть выполненные задания</a>',
+    showTemplate: '<a href="#app/filter" class="todolist__filter">Показать выполненные задания</a>',
     events: {
         click: 'checked',
     },
@@ -13,20 +12,17 @@ const TasksFilterView = Backbone.View.extend({
     checked() {
         const isChecked = !this.model.get('isChecked');
         this.model.set({ isChecked: isChecked });
+        console.log(this.model.get('isChecked'))
     },
     changed() {
         if (this.model.get('isChecked')) {
-            this.$el.html('Скрыть выполненные задания');
-            this.$el.attr('href', '#app/all');
-            this.isChecked = false;
+            this.$el.html(this.hideTemplate);
         } else {
-            this.$el.html('Показать выполненные задания');
-            this.$el.attr('href', '#app/filter');
-            this.isChecked = true;
+            this.$el.html(this.showTemplate);
         }
     },
     render() {
-        this.checked();
+        this.changed();
         return this;
     },
 });
